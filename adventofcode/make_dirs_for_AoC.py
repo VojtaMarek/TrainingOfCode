@@ -6,6 +6,7 @@ import datetime
 
 YEAR = datetime.datetime.today().strftime('%Y')
 PATH = os.path.abspath(os.getcwd())
+FILE_TYPE = '.py'
 
 
 def get_path_with_year(current_year=YEAR, current_path=PATH):
@@ -13,7 +14,7 @@ def get_path_with_year(current_year=YEAR, current_path=PATH):
     return year_path
 
 
-def check_folder(path=get_path_with_year(), create_folders=False):
+def check_folder(path=get_path_with_year(), create_folders=False, create_data_files=False, create_code_files=False):
     flag = True
     new_folders = []
     for folder in range(1, 26):
@@ -31,13 +32,26 @@ def check_folder(path=get_path_with_year(), create_folders=False):
                 + " -> lets create one to get ready for AoC"
             )
             flag = False
-            if create_folders:
+            if create_folders: # to get folders
                 os.makedirs(new_path)
                 print(
                     new_path + "-> WAS CREATED.",
                 )
-        else:
+        elif not create_data_files and not create_code_files:
             print("Folder exists: " + new_path + " -> no need to make a new one.")
+        if create_data_files:
+            try:
+                with open(f"{new_path}data.txt", "x") as data_file: data_file.write('')
+                print(f"{new_path}data.txt -> WAS CREATED.")
+            except:
+                print(f"{new_path}data.txt -> WAS NOT CREATED.")
+        if create_code_files:
+            try:
+                with open(f"{new_path}{new_folder}{FILE_TYPE}", "x") as code_file: code_file.write('')
+                print(f"{new_path}{new_folder}{FILE_TYPE} -> WAS CREATED.")
+            except:
+                print(f"{new_path}{new_folder}{FILE_TYPE} -> WAS NOT CREATED.")
+
 
     return flag
 
@@ -45,6 +59,13 @@ def check_folder(path=get_path_with_year(), create_folders=False):
 if __name__ == "__main__":
     all_folders_created = check_folder()
     if all_folders_created:
-        print("You are ready for AoC!")
-    elif (input("Do you want to create the folders? (C for create)\n> ").upper().strip() == "C"):
+        print("Your folders are ready for AoC!")
+    elif (input("Do you want to create the folders? ('F' for create Folders)\n> ").upper().strip() == "F"):
         check_folder(create_folders=True)
+    all_folders_created = check_folder()
+    if all_folders_created:
+        if (input(f"Do you want to create the 01{FILE_TYPE} an so on files in folders? ('C' for create Code)\n> ").upper().strip() == "C"):
+            check_folder(create_code_files=True)
+        if (input("Do you want to create the data.txt files in folders? ('D' for create Data)\n> ").upper().strip() == "D"):
+            check_folder(create_data_files=True)
+
