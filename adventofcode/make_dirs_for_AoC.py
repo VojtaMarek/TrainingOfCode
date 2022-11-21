@@ -4,7 +4,7 @@ in current year folder (eg. 2022/) created, it gives you an option to do so."""
 import os
 import datetime
 
-YEAR = datetime.datetime.today().strftime('%Y')
+YEAR = '2021'#datetime.datetime.today().strftime('%Y')
 PATH = os.path.abspath(os.getcwd())
 FILE_TYPE = '.py'
 
@@ -37,7 +37,7 @@ def check_folder(path=get_path_with_year(), create_folders=False, create_data_fi
                 print(
                     new_path + "-> WAS CREATED.",
                 )
-        elif not create_data_files and not create_code_files:
+        elif not create_data_files or not create_code_files:
             print("Folder exists: " + new_path + " -> no need to make a new one.")
         if create_data_files:
             try:
