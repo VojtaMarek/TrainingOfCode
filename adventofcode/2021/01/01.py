@@ -1,8 +1,4 @@
 
-
-from linecache import getlines
-
-
 def getLines():
     with open('input.txt', 'rt') as f:
         lines = f.read().splitlines()
