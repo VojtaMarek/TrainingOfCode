@@ -28,45 +28,50 @@ def get_sum(board):
 
 
 def main():
-    fileLines = load_file()
+    file_lines = load_file()
 
     # get new num
-    firstLine = fileLines[0]
-    firstLineList = []
-    firstLineList = firstLine.split(',')
-    for num in firstLineList:
+    first_line = file_lines[0]
+    first_line_list = []
+    first_line_list = first_line.split(',')
+    for num in first_line_list:
         print(num, '- ', end='')
     print('\n')
 
     # get boards
-    boardsList = []
+    boards_list = []
     flag = True
-    for i, line in enumerate(fileLines):
+    for i, line in enumerate(file_lines):
         board = []
         if line == '':
-            boardLine = []
-            for line in fileLines[i+1:i+6]:
-                boardLine.append(line.split())
-            board.append(boardLine)
+            board_line = []
+            for line in file_lines[i+1:i+6]:
+                board_line.append(line.split())
+            board.append(board_line)
             # print('B: ', board[0])
             flag = True
         else: flag = False
         if flag:
-            boardsList.append(board[0])
+            boards_list.append(board[0])
     
-    boardsListBackup = copy.deepcopy(boardsList)
+    boards_list_backup = copy.deepcopy(boards_list)
 
     # loop to play bingo
-    for num in firstLineList:
-        for b, board in enumerate(boardsList):
+    for num in first_line_list:
+        for b, board in enumerate(boards_list):
             for l, line in enumerate(board):
                 for i, item in enumerate(line):
                     if item == num:
-                        boardsList[b][l][i] = 'x'   
+                        boards_list[b][l][i] = 'x'   
         
-            if check_bingo(boardsList[b]):
+
+
+
+
+
+            if check_bingo(board):
                 
-                sum_board = get_sum(boardsList[b])
+                sum_board = get_sum(board)
                 print(f'{num} - Done, BINGO on board: {b}, RESULT: {num} * {sum_board} = {int(num)*sum_board}' )
                 
                 break
