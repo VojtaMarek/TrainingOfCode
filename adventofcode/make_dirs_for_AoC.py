@@ -5,7 +5,7 @@ import os
 import datetime
 
 YEAR = '2022' # datetime.datetime.today().strftime('%Y') # un-comment for current year
-PATH = os.path.abspath(os.getcwd())
+PATH = 'AdventOfCode' # os.path.abspath(os.getcwd())
 FILE_TYPE = '.py'
 
 
