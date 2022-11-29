@@ -4,7 +4,7 @@ in current year folder (eg. 2022/) created, it gives you an option to do so."""
 import os
 import datetime
 
-YEAR = '2021'#datetime.datetime.today().strftime('%Y')
+YEAR = '2022' # datetime.datetime.today().strftime('%Y') # un-comment for current year
 PATH = os.path.abspath(os.getcwd())
 FILE_TYPE = '.py'
 
@@ -14,7 +14,7 @@ def get_path_with_year(current_year=YEAR, current_path=PATH):
     return year_path
 
 
-def check_folder(path=get_path_with_year(), create_folders=False, create_data_files=False, create_code_files=False):
+def check_folder(path=get_path_with_year(), create_folders=False, create_input_files=False, create_code_files=False, create_input_test_files=False):
     flag = True
     new_folders = []
     for folder in range(1, 26):
@@ -37,20 +37,26 @@ def check_folder(path=get_path_with_year(), create_folders=False, create_data_fi
                 print(
                     new_path + "-> WAS CREATED.",
                 )
-        elif not create_data_files or not create_code_files:
+        elif not create_input_files or not create_code_files:
             print("Folder exists: " + new_path + " -> no need to make a new one.")
-        if create_data_files:
+        if create_input_files:
             try:
-                with open(f"{new_path}data.txt", "x") as data_file: data_file.write('')
-                print(f"{new_path}data.txt -> WAS CREATED.")
+                with open(f"{new_path}input.txt", "x") as input_file: input_file.write('')
+                print(f"{new_path}input.txt -> WAS CREATED.")
             except:
-                print(f"{new_path}data.txt -> WAS NOT CREATED.")
+                print(f"{new_path}input.txt -> WAS NOT CREATED.")
         if create_code_files:
             try:
                 with open(f"{new_path}{new_folder}{FILE_TYPE}", "x") as code_file: code_file.write('')
                 print(f"{new_path}{new_folder}{FILE_TYPE} -> WAS CREATED.")
             except:
                 print(f"{new_path}{new_folder}{FILE_TYPE} -> WAS NOT CREATED.")
+        if create_input_test_files:
+            try:
+                with open(f"{new_path}input_test.txt", "x") as input_test_file: input_test_file.write('')
+                print(f"{new_path}input_test.txt -> WAS CREATED.")
+            except:
+                print(f"{new_path}input_test.txt -> WAS NOT CREATED.")
 
 
     return flag
@@ -64,8 +70,10 @@ if __name__ == "__main__":
         check_folder(create_folders=True)
     all_folders_created = check_folder()
     if all_folders_created:
-        if (input(f"Do you want to create the 01{FILE_TYPE} an so on files in folders? ('C' for create Code)\n> ").upper().strip() == "C"):
+        if (input(f"Do you want to create the {YEAR}/01{FILE_TYPE} an so on files in your folders? ('C' for create Code)\n> ").upper().strip() == "C"):
             check_folder(create_code_files=True)
-        if (input("Do you want to create the data.txt files in folders? ('D' for create Data)\n> ").upper().strip() == "D"):
-            check_folder(create_data_files=True)
+        if (input("Do you want to create the input.txt files in folders? ('D' for create Data)\n> ").upper().strip() == "D"):
+            check_folder(create_input_files=True)
+        if (input("Do you want to create the input_test.txt files in folders? ('T' for create Data)\n> ").upper().strip() == "T"):
+            check_folder(create_input_test_files=True)
 
