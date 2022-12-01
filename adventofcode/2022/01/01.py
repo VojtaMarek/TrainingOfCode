@@ -1,5 +1,4 @@
 def get_sums():
-    """returns 2D structured lines"""
     with open('AdventOfCode\\2022\\01\\input.txt', 'rt') as f:
         lines = f.read().split('\n\n')
         for i, line in enumerate(lines):
