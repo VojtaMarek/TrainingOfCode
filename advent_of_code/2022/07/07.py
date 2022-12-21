@@ -46,49 +46,46 @@ def get_drive(lines):
             exec(f"{nested_path}.append({num})")
     return drive
 
+SUMS = 0
+SUM_LIST = []
 
-# def count_sum(items, folder_name="", sum=0):
-#     for i, item in enumerate(items):
-#         if isinstance(item, list):
-#             folder_name = item
-#             count_sum(item, folder_name, sum)
-#         else:
-#             if isinstance(item, int):
-#                 sum += item
-#             elif i != 0:
-#                 print(item)
-#                 #sum += count_sum(items, folder_name, sum)[1]
-
-#     return (sum)
-
-
-def count_sum(lst, folder_name="", sum=0, sums=[]):
-    for item in lst:
+def count_sum(lst, folder_name=""):
+    sum = 0
+    global SUMS
+    global SUM_LIST
+    folder_name = lst[0]
+    for item in lst[1:]:
         if isinstance(item, list):
-            count_sum(item, folder_name, sum)
+            sum += count_sum(item, folder_name)
         elif isinstance(item, int):
             sum += item
-        else:
-            folder_name = item
 
-    print(f"Folder name: {folder_name} ", end="")
-    print(f"Sum: {sum}")
+
+    # print(f"Folder name: {folder_name} ", end="")
+    # print(f"Sum: {sum}")
     if sum <= 100000:
-        print(f"::{sum}")
+        # print(f"::{sum}")
         # print("smaller than 100000!")
-        sums.append(sum)
-    return sums
+        SUMS += sum
+    SUM_LIST.append(sum)
+    return sum
 
 
 def main(lines):
     drive = get_drive(lines)
-
     count_sum(drive)
 
-    # print(sums)
 
-    return drive
-    
 if __name__ == '__main__':
+    main(get_lines(test=False))
+    SUM_LIST.sort()
 
-    print(f"Part one: {main(get_lines(test=True))}")
+    space = SUM_LIST[-1] - 70000000 + 30000000
+    #print(space)
+    print(f"Part one: {SUMS}")
+    # print(f"List of sums: {SUM_LIST}")
+    for sum in SUM_LIST:
+        if sum > space:
+            print(f'Part two: {sum}')
+            break
+
