@@ -4,8 +4,8 @@ in current year folder (eg. 2022/) created, it gives you an option to do so."""
 import os
 import datetime
 
-YEAR = '2022' # datetime.datetime.today().strftime('%Y') # un-comment for current year
-PATH = 'AdventOfCode' # os.path.abspath(os.getcwd())
+YEAR = '2016' # datetime.datetime.today().strftime('%Y') # un-comment for current year
+PATH = 'advent_of_code' # os.path.abspath(os.getcwd())
 FILE_TYPE = '.py'
 
 
