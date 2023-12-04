@@ -1,6 +1,3 @@
-from copy import deepcopy as deppcopy
-
-
 class Game:
     num: int = 0
     winning: list[int] = []
